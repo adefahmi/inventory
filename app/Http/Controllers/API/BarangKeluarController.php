@@ -46,6 +46,10 @@ class BarangKeluarController extends Controller
         $data['user_id'] = Auth::user()->id;
 
         $result = BarangKeluar::create($data);
+        //decrease stock
+        $result->barang->decreaseStock($data['qty'], [
+            'reference' => $result,
+        ]);
 
         return ResponseFormatter::success(
             new BarangKeluarResource($result),
@@ -110,6 +114,7 @@ class BarangKeluarController extends Controller
      */
     public function destroy(BarangKeluar $barang_keluar)
     {
+        $barang_keluar->barang->increaseStock($barang_keluar->qty);
         $barang_keluar->delete();
 
         return ResponseFormatter::success(

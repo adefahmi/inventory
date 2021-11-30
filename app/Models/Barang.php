@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Appstract\Stock\HasStock;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Barang extends Model
 {
-    use HasFactory, Filterable;
+    use HasFactory, Filterable, HasStock;
 
     protected $guarded = [
         'id',
