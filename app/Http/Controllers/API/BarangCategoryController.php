@@ -36,7 +36,16 @@ class BarangCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $result = BarangCategory::create($request->all());
+
+        return ResponseFormatter::success(
+            new BarangCategoryResource($result),
+            'Data berhasil disimpan'
+        );
     }
 
     /**
@@ -47,7 +56,20 @@ class BarangCategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $result = BarangCategory::find($id);
+
+        if ($result) {
+            return ResponseFormatter::success(
+                new BarangCategoryResource($result),
+                'Data berhasil diambil'
+            );
+        }
+
+        return ResponseFormatter::error(
+            null,
+            'Data tidak ada',
+            404
+        );
     }
 
     /**
@@ -57,9 +79,18 @@ class BarangCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, BarangCategory $barang_category)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $barang_category->update($request->all());
+
+        return ResponseFormatter::success(
+            new BarangCategoryResource($barang_category),
+            'Data berhasil diupdate'
+        );
     }
 
     /**
@@ -68,8 +99,13 @@ class BarangCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(BarangCategory $barang_category)
     {
-        //
+        $barang_category->delete();
+
+        return ResponseFormatter::success(
+            null,
+            'Data berhasil dihapus'
+        );
     }
 }
