@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\BarangCategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -20,9 +21,8 @@ Route::post('login', [AuthController::class, 'login']);
 
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::group(['middleware' => ['can:view laporan']], function () {
-        Route::get('test', function() {
-            return Auth::user();
-        });
-    });
+    // Route::group(['middleware' => ['can:view laporan']], function () {
+    //     Route::resource('barang-category', BarangCategoryController::class);
+    // });
+    Route::apiResource('barang-category', BarangCategoryController::class);
 });
