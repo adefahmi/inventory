@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\BarangCategoryController;
 use App\Http\Controllers\API\BarangController;
+use App\Http\Controllers\API\BarangMasukController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -27,4 +28,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     // });
     Route::apiResource('barang-category', BarangCategoryController::class);
     Route::apiResource('barang', BarangController::class);
+    Route::apiResource('barang-masuk', BarangMasukController::class);
 });
