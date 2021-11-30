@@ -21,7 +21,8 @@ Route::post('login', [AuthController::class, 'login']);
 
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::group(['middleware' => ['can:view laporan']], function () {
-        Route::resource('barang-category', BarangCategoryController::class);
-    });
+    // Route::group(['middleware' => ['can:view laporan']], function () {
+    //     Route::resource('barang-category', BarangCategoryController::class);
+    // });
+    Route::apiResource('barang-category', BarangCategoryController::class);
 });

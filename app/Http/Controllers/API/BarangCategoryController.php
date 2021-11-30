@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BarangCategoryResource;
 use App\Models\BarangCategory;
 use Illuminate\Http\Request;
 
@@ -16,23 +17,13 @@ class BarangCategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $limit = 3;
-        $category = BarangCategory::all();
+        $records = BarangCategory::query();
+        $perPage = $request->input('perPage', 10);
 
         return ResponseFormatter::success(
-            $category,
-            'Data list kategori barang berhasil diambil'
+            BarangCategoryResource::collection($records->paginate($perPage)),
+            'Data berhasil diambil'
         );
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -49,21 +40,10 @@ class BarangCategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\BarangCategory  $barangCategory
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(BarangCategory $barangCategory)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\BarangCategory  $barangCategory
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(BarangCategory $barangCategory)
+    public function show($id)
     {
         //
     }
@@ -72,10 +52,10 @@ class BarangCategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\BarangCategory  $barangCategory
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BarangCategory $barangCategory)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -83,10 +63,10 @@ class BarangCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\BarangCategory  $barangCategory
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BarangCategory $barangCategory)
+    public function destroy($id)
     {
         //
     }
