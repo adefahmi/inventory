@@ -17,8 +17,10 @@ class BarangCategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $records = BarangCategory::query();
         $perPage = $request->input('perPage', 10);
+
+        $records = BarangCategory::query();
+        $records->filter($request->all());
 
         return ResponseFormatter::success(
             BarangCategoryResource::collection($records->paginate($perPage)),
