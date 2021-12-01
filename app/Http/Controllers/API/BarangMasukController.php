@@ -91,14 +91,15 @@ class BarangMasukController extends Controller
     public function update(Request $request, BarangMasuk $barang_masuk)
     {
         $request->validate([
-            'barang_id' => 'required',
             'qty' => 'required|numeric',
         ]);
 
-        $data = $request->all();
+        $data['qty'] = $request->qty;
         $data['created_by'] = Auth::user()->id;
+        $new_qty = $data['qty'] - $barang_masuk->qty;
 
         $barang_masuk->update($data);
+        $barang_masuk->barang->mutateStock($new_qty);
 
         return ResponseFormatter::success(
             new BarangMasukResource($barang_masuk),
