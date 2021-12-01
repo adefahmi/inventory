@@ -2,6 +2,7 @@
 
 namespace App\ModelFilters;
 
+use Carbon\Carbon;
 use EloquentFilter\ModelFilter;
 
 class BarangMasukFilter extends ModelFilter
@@ -26,11 +27,11 @@ class BarangMasukFilter extends ModelFilter
 
     public function timeFrom($timeFrom)
     {
-        return $this->where('created_at', '>=', $timeFrom);
+        return $this->whereDate('created_at', '>=', Carbon::parse($timeFrom)->format('Y-m-d'));
     }
 
     public function timeTo($timeTo)
     {
-        return $this->where('created_at', '<=', $timeTo);
+        return $this->whereDate('created_at', '<=', Carbon::parse($timeTo)->format('Y-m-d'));
     }
 }
