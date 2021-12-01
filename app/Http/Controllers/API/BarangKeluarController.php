@@ -91,14 +91,15 @@ class BarangKeluarController extends Controller
     public function update(Request $request, BarangKeluar $barang_keluar)
     {
         $request->validate([
-            'barang_id' => 'required',
             'qty' => 'required|numeric',
         ]);
 
-        $data = $request->all();
+        $data['qty'] = $request->qty;
         $data['created_by'] = Auth::user()->id;
+        $new_qty = $barang_keluar->qty - $data['qty'];
 
         $barang_keluar->update($data);
+        $barang_keluar->barang->mutateStock($new_qty);
 
         return ResponseFormatter::success(
             new BarangKeluarResource($barang_keluar),
