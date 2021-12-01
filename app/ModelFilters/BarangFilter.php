@@ -28,4 +28,9 @@ class BarangFilter extends ModelFilter
     {
         return $this->where('created_by', $id);
     }
+
+    public function barang($id)
+    {
+        return $this->where('id', $id);
+    }
 }

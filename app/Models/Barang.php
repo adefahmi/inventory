@@ -26,4 +26,14 @@ class Barang extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    public function barangMasuk()
+    {
+        return $this->hasMany(BarangMasuk::class);
+    }
+
+    public function barangKeluar()
+    {
+        return $this->hasMany(BarangKeluar::class);
+    }
 }
